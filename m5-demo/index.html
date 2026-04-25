@@ -25,18 +25,81 @@
     min-height: 100vh;
     flex-direction: column;
   }
-  h1.page-title {
-    font-size: 18px;
+  .page-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 4px;
     color: #3b2f1e;
-    margin: 20px 0 5px;
-    text-align: center;
   }
+  .page-brand .brand-mark {
+    width: 32px; height: 32px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #4a7c59 0%, #3b5a3a 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #f0ead6;
+    box-shadow: 0 4px 10px rgba(59,90,58,0.25);
+  }
+  .page-brand .brand-name {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+  .page-brand .brand-name span { color: #4a7c59; }
   p.page-subtitle {
-    font-size: 13px;
+    font-size: 12px;
     color: #5c4a32;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     text-align: center;
+    opacity: 0.8;
+    letter-spacing: 0.3px;
   }
+
+  /* Home screen branded hero */
+  .home-hero {
+    margin: -16px -16px 16px -16px;
+    padding: 24px 20px 20px;
+    background: linear-gradient(135deg, #3b5a3a 0%, #4a7c59 60%, #5e9170 100%);
+    color: #f0ead6;
+    position: relative;
+    overflow: hidden;
+  }
+  .home-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 85% 20%, rgba(232,195,106,0.25) 0%, transparent 35%),
+      radial-gradient(circle at 15% 85%, rgba(255,253,247,0.12) 0%, transparent 40%);
+    pointer-events: none;
+  }
+  .home-hero .brand-row {
+    display: flex; align-items: center; gap: 10px;
+    position: relative;
+  }
+  .home-hero .logo-mark {
+    width: 40px; height: 40px;
+    border-radius: 11px;
+    background: rgba(255,253,247,0.95);
+    display: flex; align-items: center; justify-content: center;
+    color: #3b5a3a;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+  }
+  .home-hero .wordmark {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    line-height: 1;
+  }
+  .home-hero .wordmark span { color: #e8c36a; }
+  .home-hero .tagline {
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: 0.9;
+    line-height: 1.4;
+    position: relative;
+  }
+  .home-hero .tagline b { color: #e8c36a; font-weight: 700; }
   .phone {
     width: 375px;
     height: 812px;
@@ -729,12 +792,80 @@
     background: #8a7b65;
     color: #f0ead6;
   }
+
+  /* Toast (transient feedback) */
+  .toast {
+    position: absolute;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #3b2f1e;
+    color: #f0ead6;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 30;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    max-width: 80%;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    line-height: 1.4;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Bottom-anchored action sheet (reuses .overlay) */
+  .overlay.bottom { align-items: flex-end; padding: 0; }
+  .action-sheet {
+    background: #faf6ef;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    padding: 18px 16px 22px;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  .action-sheet h3 {
+    font-size: 12px;
+    text-align: center;
+    color: #7a6b52;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .action-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px;
+    background: #fffdf7;
+    border: 1.5px solid #d4c5a9;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #3b2f1e;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: border-color 0.15s;
+  }
+  .action-item:hover { border-color: #4a7c59; }
+  .action-item .action-icon { color: #4a7c59; display: flex; flex-shrink: 0; }
+  .action-item.danger { color: #a0422a; }
+  .action-item.danger .action-icon { color: #a0422a; }
 </style>
 </head>
 <body>
 
-<h1 class="page-title"></h1>
-<p class="page-subtitle"></p>
+<div class="page-brand">
+  <span class="brand-mark"><i data-lucide="leaf" class="icon-20"></i></span>
+  <span class="brand-name">Fresh<span>Keep</span></span>
+</div>
+<p class="page-subtitle">Hi-Fi prototype · Tap any element to interact</p>
 
 <div class="phone">
   <div class="wf-label"></div>
@@ -748,10 +879,20 @@
     </span>
   </div>
 
+  <div class="toast" id="toast"></div>
+
+  <div class="overlay bottom" id="actionSheetOverlay" onclick="if(event.target===this) closeActionSheet()">
+    <div class="action-sheet">
+      <h3 id="action-sheet-title">Options</h3>
+      <div id="action-sheet-items"></div>
+      <button class="btn btn-outline" onclick="closeActionSheet()" style="margin-top:4px;">Cancel</button>
+    </div>
+  </div>
+
   <div class="overlay" id="authOverlay">
     <div class="modal">
-      <h3>Connect Kroger</h3>
-      <p>Sign in to your Kroger account to enable automatic receipt import.</p>
+      <h3 id="auth-title">Connect Store</h3>
+      <p id="auth-desc">Sign in to enable automatic receipt import.</p>
       <input type="text" placeholder="Email address" />
       <input type="password" placeholder="Password" />
       <button class="btn" onclick="completeAuth()" style="margin-top:8px;">Authorize & Connect</button>
@@ -792,28 +933,12 @@
 
   <div class="screen active" id="screen-home">
     
-    <div style="margin:-16px -16px 16px -16px; border-radius: 0; overflow:hidden; position:relative;">
-      <svg viewBox="0 0 375 120" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;">
-        <defs>
-          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c4d4a8"/>
-            <stop offset="100%" stop-color="#e8dfc4"/>
-          </linearGradient>
-        </defs>
-        <rect width="375" height="120" fill="url(#sky)"/>
-        
-        <circle cx="300" cy="32" r="18" fill="#e8c36a" opacity="0.8"/>
-        
-        <polygon points="0,120 60,55 120,90 180,45 240,75 300,40 375,80 375,120" fill="#7a9a6d" opacity="0.5"/>
-        
-        <polygon points="0,120 50,70 110,95 160,60 220,85 280,55 340,75 375,65 375,120" fill="#4a7c59" opacity="0.7"/>
-        
-        <polygon points="0,120 30,95 50,100 70,90 90,98 110,88 130,96 150,85 170,95 190,88 210,96 230,87 250,95 270,90 290,97 310,88 330,96 350,91 375,95 375,120" fill="#3b5a3a" opacity="0.8"/>
-        
-        <rect y="108" width="375" height="12" fill="#5c4a32" opacity="0.3"/>
-        
-        <text x="187" y="108" text-anchor="middle" font-family="-apple-system, sans-serif" font-size="22" font-weight="800" fill="#fffdf7" style="text-shadow:0 1px 4px rgba(59,47,30,0.4);">FreshKeep</text>
-      </svg>
+    <div class="home-hero">
+      <div class="brand-row">
+        <span class="logo-mark"><i data-lucide="leaf" class="icon-24"></i></span>
+        <span class="wordmark">Fresh<span>Keep</span></span>
+      </div>
+      <div class="tagline">Welcome back, Ryan. <b>2 items</b> need attention today.</div>
     </div>
 
     <div id="task-banner-home" class="task-banner" style="display:none;"></div>
@@ -832,7 +957,7 @@
     </div>
 
     <div class="section-label" style="display:flex;align-items:center;gap:6px;"><i data-lucide="alert-triangle" class="icon-14"></i> Expiring Soon · 2 items</div>
-    <div class="item-row" onclick="showScreen('screen-detail-spinach')">
+    <div class="item-row" data-name="Spinach" onclick="showScreen('screen-detail-spinach')">
       <div class="item-icon"><i data-lucide="leaf" class="icon-24" style="color:#4a7c59;"></i></div>
       <div class="item-info">
         <div class="item-name">Spinach</div>
@@ -840,7 +965,7 @@
       </div>
       <div class="item-days days-red">1 day<br>left</div>
     </div>
-    <div class="item-row" onclick="showScreen('screen-detail-strawberries')">
+    <div class="item-row" data-name="Strawberries" onclick="showScreen('screen-detail-strawberries')">
       <div class="item-icon"><i data-lucide="cherry" class="icon-24" style="color:#a0422a;"></i></div>
       <div class="item-info">
         <div class="item-name">Strawberries</div>
@@ -850,7 +975,7 @@
     </div>
 
     <div class="section-label" style="display:flex;align-items:center;gap:6px;"><i data-lucide="clock" class="icon-14"></i> Use This Week · 3 items</div>
-    <div class="item-row" onclick="showScreen('screen-detail-yogurt')">
+    <div class="item-row" data-name="Greek Yogurt" onclick="showScreen('screen-detail-yogurt')">
       <div class="item-icon"><i data-lucide="milk" class="icon-24" style="color:#4a6b82;"></i></div>
       <div class="item-info">
         <div class="item-name">Greek Yogurt</div>
@@ -858,7 +983,7 @@
       </div>
       <div class="item-days days-orange">4 days<br>left</div>
     </div>
-    <div class="item-row">
+    <div class="item-row" data-name="Mushrooms" onclick="quickInfo('Mushrooms', 'Fridge', 5)">
       <div class="item-icon"><i data-lucide="circle-dot" class="icon-24" style="color:#7a6b52;"></i></div>
       <div class="item-info">
         <div class="item-name">Mushrooms</div>
@@ -866,7 +991,7 @@
       </div>
       <div class="item-days days-orange">5 days<br>left</div>
     </div>
-    <div class="item-row">
+    <div class="item-row" data-name="Eggs (dozen)" onclick="quickInfo('Eggs (dozen)', 'Fridge', 12)">
       <div class="item-icon"><i data-lucide="egg" class="icon-24" style="color:#b8733a;"></i></div>
       <div class="item-info">
         <div class="item-name">Eggs (dozen)</div>
@@ -996,7 +1121,7 @@
     <div id="task-banner-inventory" class="task-banner" style="display:none;"></div>
     <div class="screen-header">
       <h2>Inventory</h2>
-      <span style="cursor:pointer;color:#5c4a32;"><i data-lucide="more-horizontal" class="icon-20"></i></span>
+      <span style="cursor:pointer;color:#5c4a32;" onclick="inventoryMenu()" title="More options"><i data-lucide="more-horizontal" class="icon-20"></i></span>
     </div>
 
     <div class="search-bar">
@@ -1043,7 +1168,7 @@
         </div>
         <div class="item-days days-orange">4d</div>
       </div>
-      <div class="item-row" data-location="Fridge" data-name="Mushrooms">
+      <div class="item-row" data-location="Fridge" data-name="Mushrooms" onclick="quickInfo('Mushrooms', 'Fridge', 5)">
         <div class="item-icon"><i data-lucide="circle-dot" class="icon-24" style="color:#7a6b52;"></i></div>
         <div class="item-info">
           <div class="item-name">Mushrooms</div>
@@ -1052,7 +1177,7 @@
         </div>
         <div class="item-days days-orange">5d</div>
       </div>
-      <div class="item-row" data-location="Fridge" data-name="Eggs dozen">
+      <div class="item-row" data-location="Fridge" data-name="Eggs (dozen)" onclick="quickInfo('Eggs (dozen)', 'Fridge', 12)">
         <div class="item-icon"><i data-lucide="egg" class="icon-24" style="color:#b8733a;"></i></div>
         <div class="item-info">
           <div class="item-name">Eggs (dozen)</div>
@@ -1061,7 +1186,7 @@
         </div>
         <div class="item-days days-green">12d</div>
       </div>
-      <div class="item-row" data-location="Fridge" data-name="Butter">
+      <div class="item-row" data-location="Fridge" data-name="Butter" onclick="quickInfo('Butter', 'Fridge', 18)">
         <div class="item-icon"><i data-lucide="square" class="icon-24" style="color:#e8c36a;"></i></div>
         <div class="item-info">
           <div class="item-name">Butter</div>
@@ -1070,7 +1195,7 @@
         </div>
         <div class="item-days days-green">18d</div>
       </div>
-      <div class="item-row" data-location="Freezer" data-name="Chicken Breast">
+      <div class="item-row" data-location="Freezer" data-name="Chicken Breast" onclick="quickInfo('Chicken Breast', 'Freezer', 90)">
         <div class="item-icon"><i data-lucide="drumstick" class="icon-24" style="color:#b8733a;"></i></div>
         <div class="item-info">
           <div class="item-name">Chicken Breast</div>
@@ -1079,7 +1204,7 @@
         </div>
         <div class="item-days days-green">90d</div>
       </div>
-      <div class="item-row" data-location="Pantry" data-name="Pasta box">
+      <div class="item-row" data-location="Pantry" data-name="Pasta (box)" onclick="quickInfo('Pasta (box)', 'Pantry', 180)">
         <div class="item-icon"><i data-lucide="wheat" class="icon-24" style="color:#b8733a;"></i></div>
         <div class="item-info">
           <div class="item-name">Pasta (box)</div>
@@ -1088,7 +1213,7 @@
         </div>
         <div class="item-days days-green">180d</div>
       </div>
-      <div class="item-row" data-location="Pantry" data-name="Oatmeal">
+      <div class="item-row" data-location="Pantry" data-name="Oatmeal" onclick="quickInfo('Oatmeal', 'Pantry', 240)">
         <div class="item-icon"><i data-lucide="wheat" class="icon-24" style="color:#7a6b52;"></i></div>
         <div class="item-info">
           <div class="item-name">Oatmeal</div>
@@ -1147,8 +1272,8 @@
     </div>
 
     <div style="display:flex;gap:8px;margin-top:12px;">
-      <button class="btn btn-sm" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="check" class="icon-16"></i> Mark Used</button>
-      <button class="btn btn-sm btn-outline" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="trash-2" class="icon-16"></i> Discard</button>
+      <button class="btn btn-sm" onclick="markUsed('Greek Yogurt')" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="check" class="icon-16"></i> Mark Used</button>
+      <button class="btn btn-sm btn-outline" onclick="discardItem('Greek Yogurt')" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="trash-2" class="icon-16"></i> Discard</button>
     </div>
   </div>
 
@@ -1186,8 +1311,8 @@
       <p>Bagged spinach degrades quickly once opened. Check for sliminess, dark spots, or strong odor. If leaves are still crisp and bright green, cook or eat today.</p>
     </div>
     <div style="display:flex;gap:8px;margin-top:12px;">
-      <button class="btn btn-sm" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="check" class="icon-16"></i> Mark Used</button>
-      <button class="btn btn-sm btn-outline" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="trash-2" class="icon-16"></i> Discard</button>
+      <button class="btn btn-sm" onclick="markUsed('Spinach')" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="check" class="icon-16"></i> Mark Used</button>
+      <button class="btn btn-sm btn-outline" onclick="discardItem('Spinach')" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="trash-2" class="icon-16"></i> Discard</button>
     </div>
   </div>
 
@@ -1225,16 +1350,16 @@
       <p>Fresh strawberries typically last 3 to 7 days refrigerated. Inspect for mold or mushiness. Still-firm berries with no white fuzz are safe to eat.</p>
     </div>
     <div style="display:flex;gap:8px;margin-top:12px;">
-      <button class="btn btn-sm" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="check" class="icon-16"></i> Mark Used</button>
-      <button class="btn btn-sm btn-outline" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="trash-2" class="icon-16"></i> Discard</button>
+      <button class="btn btn-sm" onclick="markUsed('Strawberries')" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="check" class="icon-16"></i> Mark Used</button>
+      <button class="btn btn-sm btn-outline" onclick="discardItem('Strawberries')" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="trash-2" class="icon-16"></i> Discard</button>
     </div>
   </div>
 
-  
+
   <div class="screen" id="screen-stats">
     <div class="screen-header">
       <h2>Impact</h2>
-      <span style="cursor:pointer;color:#5c4a32;"><i data-lucide="more-horizontal" class="icon-20"></i></span>
+      <span style="cursor:pointer;color:#5c4a32;" onclick="statsMenu()" title="More options"><i data-lucide="more-horizontal" class="icon-20"></i></span>
     </div>
 
     <div class="card" style="background:#e8efe3;border-color:#a3c2a0;text-align:center;margin-bottom:16px;">
@@ -1283,7 +1408,7 @@
     </div>
 
     <div class="section-label">Monthly Trend</div>
-    <div class="card" style="text-align:center;color:#8a7b65;padding:30px;">
+    <div class="card" onclick="showTrendDetails()" style="text-align:center;color:#8a7b65;padding:30px;">
       <div style="color:#4a7c59;"><i data-lucide="bar-chart-3" class="icon-40"></i></div>
       <p style="margin-top:8px;">Waste reduction graph<br>(Trending downward, keep it up!)</p>
     </div>
@@ -1367,7 +1492,7 @@
         <div class="store-name">Costco</div>
         <div class="store-meta">Not connected</div>
       </div>
-      <button class="btn btn-sm btn-outline" style="width:auto;">Connect</button>
+      <button class="btn btn-sm btn-outline" onclick="connectStore('Costco', this)" style="width:auto;">Connect</button>
     </div>
     <div class="store-row">
       <div class="store-icon"><i data-lucide="store" class="icon-20" style="color:#5c4a32;"></i></div>
@@ -1375,11 +1500,11 @@
         <div class="store-name">Walmart</div>
         <div class="store-meta">Not connected</div>
       </div>
-      <button class="btn btn-sm btn-outline" style="width:auto;">Connect</button>
+      <button class="btn btn-sm btn-outline" onclick="connectStore('Walmart', this)" style="width:auto;">Connect</button>
     </div>
 
     <div class="section-label" style="margin-top:20px;">Account</div>
-    <div class="setting-row">
+    <div class="setting-row" onclick="householdMembers()" style="cursor:pointer;">
       <div class="setting-info">
         <div class="setting-name">Household Members</div>
         <div class="setting-desc">Manage shared inventory access</div>
@@ -1400,7 +1525,7 @@
       </div>
       <div class="frame-label">Point camera at a QR code</div>
     </div>
-    <button class="btn" onclick="alert('No QR code detected yet.\nTry the Scan Receipt flow instead.')">Try Again</button>
+    <button class="btn" onclick="toast('No QR code detected. Try the Scan Receipt flow instead.')">Try Again</button>
     <button class="btn btn-outline" onclick="showScreen('screen-scan')">Use Receipt Scan Instead</button>
   </div>
 
@@ -1444,8 +1569,8 @@
       <li>Bake 12 to 15 minutes, until set in the center.</li>
     </ol>
 
-    <button class="btn" style="margin-top:14px;">Mark Ingredients Used</button>
-    <button class="btn btn-outline">Save Recipe</button>
+    <button class="btn" onclick="markIngredientsUsed()" style="margin-top:14px;">Mark Ingredients Used</button>
+    <button class="btn btn-outline" onclick="saveRecipe()">Save Recipe</button>
   </div>
 
   <div class="tab-bar">
@@ -1468,8 +1593,6 @@
   </div>
 </div>
 
-<p class="page-subtitle" style="margin-top:15px;max-width:400px;">
-</p>
 
 <script>
   // Screen navigation
@@ -1542,27 +1665,40 @@
     if (countEl) countEl.textContent = remaining;
   }
 
-  // Store connection flow
+  // Store connection flow (legacy alias preserved)
   function connectKroger() {
-    document.getElementById('authOverlay').classList.add('show');
+    connectStore('Kroger', document.getElementById('kroger-btn'));
   }
 
   function closeAuth() {
     document.getElementById('authOverlay').classList.remove('show');
+    pendingStore = null;
   }
 
   function completeAuth() {
     document.getElementById('authOverlay').classList.remove('show');
-    document.getElementById('kroger-status').textContent = 'Connected · Syncing...';
-    document.getElementById('kroger-status').style.color = '#4a7c59';
-    document.getElementById('kroger-btn').textContent = 'Connected';
-    document.getElementById('kroger-btn').style.background = '#4a7c59';
-    document.getElementById('kroger-btn').style.borderColor = '#4a7c59';
-    document.getElementById('kroger-btn').disabled = true;
+    if (!pendingStore) return;
+    const { name, btn } = pendingStore;
+    const row = btn.closest('.store-row');
+    const statusEl = row ? row.querySelector('.store-meta') : null;
+
+    if (statusEl) {
+      statusEl.textContent = 'Connected · Syncing...';
+      statusEl.style.color = '#4a7c59';
+    }
+    btn.textContent = 'Connected';
+    btn.classList.remove('btn-outline');
+    btn.style.background = '#4a7c59';
+    btn.style.borderColor = '#4a7c59';
+    btn.style.color = '#f0ead6';
+    btn.disabled = true;
 
     setTimeout(() => {
-      document.getElementById('kroger-status').textContent = 'Auto-import enabled';
+      if (statusEl) statusEl.textContent = 'Auto-import enabled';
     }, 1500);
+
+    toast(`${name} connected. Receipts will sync automatically.`);
+    pendingStore = null;
   }
 
   // Inventory filters (mutually exclusive)
@@ -1596,7 +1732,7 @@
   }
   function completeAddItem() {
     closeAddItem();
-    alert('Item added to your inventory.');
+    toast('Item added to your inventory');
   }
 
   // First-run onboarding coachmark pointing at Scan Receipt
@@ -1643,6 +1779,125 @@
     }
   });
 
+  // Toast (transient feedback)
+  let toastTimer = null;
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  // Bottom action sheet
+  const ACTION_MENUS = {
+    inventory: {
+      title: 'Inventory Options',
+      items: [
+        { label: 'Sort by expiration', icon: 'arrow-down-narrow-wide', toast: 'Sorted by expiration date' },
+        { label: 'Sort alphabetically', icon: 'arrow-down-a-z', toast: 'Sorted A to Z' },
+        { label: 'Group by storage', icon: 'layout-grid', toast: 'Grouped by storage location' },
+        { label: 'Export inventory', icon: 'download', toast: 'Inventory exported to CSV' },
+      ],
+    },
+    stats: {
+      title: 'Stats Options',
+      items: [
+        { label: 'Change time range', icon: 'calendar', toast: 'Time range: Last 3 months' },
+        { label: 'Export report', icon: 'download', toast: 'Impact report exported' },
+        { label: 'Share impact', icon: 'share-2', toast: 'Share sheet opened' },
+      ],
+    },
+  };
+
+  function openActionSheet(context) {
+    const menu = ACTION_MENUS[context];
+    if (!menu) return;
+    document.getElementById('action-sheet-title').textContent = menu.title;
+    const list = document.getElementById('action-sheet-items');
+    list.innerHTML = menu.items.map(it =>
+      `<div class="action-item" data-toast="${it.toast.replace(/"/g, '&quot;')}">
+        <span class="action-icon"><i data-lucide="${it.icon}" class="icon-20"></i></span>
+        <span>${it.label}</span>
+      </div>`
+    ).join('');
+    list.querySelectorAll('.action-item').forEach(el => {
+      el.addEventListener('click', () => {
+        const msg = el.getAttribute('data-toast');
+        closeActionSheet();
+        toast(msg);
+      });
+    });
+    if (window.lucide) window.lucide.createIcons();
+    document.getElementById('actionSheetOverlay').classList.add('show');
+  }
+
+  function closeActionSheet() {
+    document.getElementById('actionSheetOverlay').classList.remove('show');
+  }
+
+  // Item lifecycle: mark used / discard hides the item from inventory + home
+  function hideItemEverywhere(name) {
+    document.querySelectorAll(`[data-name="${name}"]`).forEach(row => {
+      row.style.display = 'none';
+    });
+    filterInventory();
+  }
+
+  function markUsed(name) {
+    hideItemEverywhere(name);
+    showScreen('screen-inventory');
+    toast(`${name} marked as used. Nice — no waste!`);
+  }
+
+  function discardItem(name) {
+    hideItemEverywhere(name);
+    showScreen('screen-inventory');
+    toast(`${name} discarded. Logged to your waste stats.`);
+  }
+
+  // Quick info popup for items without a dedicated detail screen
+  function quickInfo(name, location, days) {
+    const dayLabel = days === 1 ? '1 day' : `${days} days`;
+    toast(`${name} · ${location} · ${dayLabel} left`);
+  }
+
+  // Generalized store connection (replaces single-store Kroger flow)
+  let pendingStore = null;
+  function connectStore(storeName, btnEl) {
+    pendingStore = { name: storeName, btn: btnEl };
+    document.getElementById('auth-title').textContent = `Connect ${storeName}`;
+    document.getElementById('auth-desc').textContent =
+      `Sign in to your ${storeName} account to enable automatic receipt import.`;
+    document.getElementById('authOverlay').classList.add('show');
+  }
+
+  // Recipe screen actions
+  function markIngredientsUsed() {
+    ['Spinach', 'Mushrooms', 'Eggs (dozen)'].forEach(hideItemEverywhere);
+    showScreen('screen-home');
+    toast('3 ingredients marked used. Frittata logged!');
+  }
+
+  function saveRecipe() {
+    toast('Recipe saved to your collection');
+  }
+
+  // Settings: household members row
+  function householdMembers() {
+    toast('Household: Ryan, Alex, Sam (3 members)');
+  }
+
+  // Stats: trend card
+  function showTrendDetails() {
+    toast('Detailed trend chart coming in v2');
+  }
+
+  // Inventory header more menu
+  function inventoryMenu() { openActionSheet('inventory'); }
+  function statsMenu() { openActionSheet('stats'); }
+
   // Task walkthrough (kept for compatibility)
   function clearBanners() {
     document.querySelectorAll('.task-banner').forEach(b => {
@@ -1656,13 +1911,19 @@
     resetScan();
     showScreen('screen-home');
 
+    // Restore any hidden items (mark used / discarded)
+    document.querySelectorAll('[data-name]').forEach(row => { row.style.display = ''; });
+
     // Reset Kroger connection
-    document.getElementById('kroger-status').textContent = 'Not connected';
-    document.getElementById('kroger-status').style.color = '';
-    document.getElementById('kroger-btn').textContent = 'Connect';
-    document.getElementById('kroger-btn').style.background = '#4a7c59';
-    document.getElementById('kroger-btn').style.borderColor = '#4a7c59';
-    document.getElementById('kroger-btn').disabled = false;
+    const krogerStatus = document.getElementById('kroger-status');
+    const krogerBtn = document.getElementById('kroger-btn');
+    krogerStatus.textContent = 'Not connected';
+    krogerStatus.style.color = '';
+    krogerBtn.textContent = 'Connect';
+    krogerBtn.style.background = '';
+    krogerBtn.style.borderColor = '';
+    krogerBtn.style.color = '';
+    krogerBtn.disabled = false;
 
     // Reset detected items
     document.querySelectorAll('#scan-results .detected-item').forEach(r => {
