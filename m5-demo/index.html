@@ -100,6 +100,169 @@
     position: relative;
   }
   .home-hero .tagline b { color: #e8c36a; font-weight: 700; }
+  .hero-bell {
+    margin-left: auto;
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: rgba(255,253,247,0.18);
+    border: none;
+    color: #f0ead6;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    transition: background 0.15s;
+  }
+  .hero-bell:hover { background: rgba(255,253,247,0.3); }
+  .bell-dot {
+    position: absolute;
+    top: -4px; right: -4px;
+    background: #e8c36a;
+    color: #3b2f1e;
+    font-size: 10px;
+    font-weight: 800;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    padding: 0 5px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 0 2px #4a7c59;
+  }
+  .bell-dot:empty { display: none; }
+
+  /* Notifications screen */
+  .notif-row {
+    display: flex;
+    gap: 12px;
+    padding: 12px 14px;
+    background: #fffdf7;
+    border: 1.5px solid #d4c5a9;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .notif-row:hover { border-color: #4a7c59; }
+  .notif-row.unread { border-left: 4px solid #4a7c59; }
+  .notif-row .notif-ic {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: #ede5d3;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .notif-row .notif-body { flex: 1; min-width: 0; }
+  .notif-row .notif-title { font-size: 14px; font-weight: 700; color: #3b2f1e; }
+  .notif-row .notif-msg { font-size: 12px; color: #7a6b52; line-height: 1.4; margin-top: 2px; }
+  .notif-row .notif-time { font-size: 11px; color: #a59a80; margin-top: 4px; }
+
+  /* AI chat screen */
+  .chat-window {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .chat-msg {
+    max-width: 78%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .chat-msg.user {
+    align-self: flex-end;
+    background: #4a7c59;
+    color: #f0ead6;
+    border-bottom-right-radius: 4px;
+  }
+  .chat-msg.bot {
+    align-self: flex-start;
+    background: #fffdf7;
+    border: 1.5px solid #d4c5a9;
+    color: #3b2f1e;
+    border-bottom-left-radius: 4px;
+  }
+  .chat-msg.bot b { color: #4a7c59; }
+  .suggestion-chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 12px;
+  }
+  .chip {
+    padding: 8px 12px;
+    background: #fffdf7;
+    border: 1.5px solid #d4c5a9;
+    border-radius: 16px;
+    font-size: 12px;
+    color: #5c4a32;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chip:hover { background: #4a7c59; color: #f0ead6; border-color: #4a7c59; }
+  .chat-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .chat-input-row input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1.5px solid #d4c5a9;
+    border-radius: 20px;
+    background: #fffdf7;
+    font-size: 13px;
+    outline: none;
+  }
+  .chat-input-row input:focus { border-color: #4a7c59; }
+  .chat-send {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #4a7c59;
+    color: #f0ead6;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .chat-send:hover { background: #3b5a3a; }
+
+  /* Shopping list screen */
+  .shop-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: #fffdf7;
+    border: 1.5px solid #d4c5a9;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    transition: opacity 0.2s;
+  }
+  .shop-row.checked {
+    opacity: 0.5;
+  }
+  .shop-row.checked .shop-name {
+    text-decoration: line-through;
+  }
+  .shop-check {
+    width: 22px; height: 22px;
+    border: 2px solid #d4c5a9;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: transparent;
+    transition: all 0.15s;
+  }
+  .shop-row.checked .shop-check {
+    background: #4a7c59;
+    border-color: #4a7c59;
+    color: white;
+  }
+  .shop-info { flex: 1; min-width: 0; }
+  .shop-name { font-size: 14px; font-weight: 600; color: #3b2f1e; }
+  .shop-reason { font-size: 11px; color: #8a7b65; margin-top: 2px; display: inline-flex; align-items: center; gap: 4px; }
+  .shop-reason.recipe { color: #4a7c59; }
+  .shop-reason.low { color: #b8733a; }
+  .shop-qty { font-size: 12px; color: #7a6b52; font-weight: 600; flex-shrink: 0; }
   .phone {
     width: 375px;
     height: 812px;
@@ -937,6 +1100,10 @@
       <div class="brand-row">
         <span class="logo-mark"><i data-lucide="leaf" class="icon-24"></i></span>
         <span class="wordmark">Fresh<span>Keep</span></span>
+        <button class="hero-bell" onclick="showScreen('screen-notifications')" title="Notifications">
+          <i data-lucide="bell" class="icon-20"></i>
+          <span class="bell-dot" id="bell-dot">3</span>
+        </button>
       </div>
       <div class="tagline">Welcome back, Ryan. <b>2 items</b> need attention today.</div>
     </div>
@@ -953,6 +1120,16 @@
         <div style="margin-bottom:4px;color:#4a7c59;"><i data-lucide="zap" class="icon-28"></i></div>
         <h3>Quick Sync</h3>
         <p>QR code scan</p>
+      </div>
+      <div class="card" onclick="showScreen('screen-ai-chat')" style="text-align:center;">
+        <div style="margin-bottom:4px;color:#4a7c59;"><i data-lucide="sparkles" class="icon-28"></i></div>
+        <h3>Ask FreshKeep</h3>
+        <p>AI cooking help</p>
+      </div>
+      <div class="card" onclick="showScreen('screen-shopping')" style="text-align:center;">
+        <div style="margin-bottom:4px;color:#4a7c59;"><i data-lucide="shopping-basket" class="icon-28"></i></div>
+        <h3>Shopping List</h3>
+        <p>Auto-generated</p>
       </div>
     </div>
 
@@ -1573,6 +1750,175 @@
     <button class="btn btn-outline" onclick="saveRecipe()">Save Recipe</button>
   </div>
 
+  <div class="screen" id="screen-notifications">
+    <div class="back-btn" onclick="showScreen('screen-home')"><i data-lucide="arrow-left" class="icon-14"></i> Back to Home</div>
+    <div class="screen-header">
+      <h2>Notifications</h2>
+      <span style="cursor:pointer;color:#5c4a32;font-size:12px;font-weight:600;" onclick="markAllRead()">Mark all read</span>
+    </div>
+
+    <div class="filters">
+      <div class="filter-pill active" data-notif-filter="all" onclick="selectNotifFilter(this)">All</div>
+      <div class="filter-pill" data-notif-filter="expiring" onclick="selectNotifFilter(this)">Expiring</div>
+      <div class="filter-pill" data-notif-filter="activity" onclick="selectNotifFilter(this)">Activity</div>
+      <div class="filter-pill" data-notif-filter="tips" onclick="selectNotifFilter(this)">Tips</div>
+    </div>
+
+    <div id="notif-list">
+      <div class="notif-row unread" data-notif-type="expiring" onclick="openNotif(this, 'screen-detail-spinach')">
+        <div class="notif-ic"><i data-lucide="alert-triangle" class="icon-20" style="color:#a0422a;"></i></div>
+        <div class="notif-body">
+          <div class="notif-title">Spinach expires tomorrow</div>
+          <div class="notif-msg">Use it tonight in a frittata, or freeze the leaves for smoothies.</div>
+          <div class="notif-time">2 hours ago</div>
+        </div>
+      </div>
+      <div class="notif-row unread" data-notif-type="expiring" onclick="openNotif(this, 'screen-detail-strawberries')">
+        <div class="notif-ic"><i data-lucide="cherry" class="icon-20" style="color:#a0422a;"></i></div>
+        <div class="notif-body">
+          <div class="notif-title">Strawberries: 2 days left</div>
+          <div class="notif-msg">Slice and freeze for smoothies if you can't finish them in time.</div>
+          <div class="notif-time">5 hours ago</div>
+        </div>
+      </div>
+      <div class="notif-row unread" data-notif-type="activity" onclick="openNotif(this, null, 'Alex added 4 items from a Publix run')">
+        <div class="notif-ic"><i data-lucide="users" class="icon-20" style="color:#4a6b82;"></i></div>
+        <div class="notif-body">
+          <div class="notif-title">Alex updated the inventory</div>
+          <div class="notif-msg">Added 4 items from a Publix shopping trip.</div>
+          <div class="notif-time">Yesterday</div>
+        </div>
+      </div>
+      <div class="notif-row" data-notif-type="tips" onclick="openNotif(this, null, 'Tip: Store mushrooms in a paper bag — they stay fresh 2x longer.')">
+        <div class="notif-ic"><i data-lucide="lightbulb" class="icon-20" style="color:#b8733a;"></i></div>
+        <div class="notif-body">
+          <div class="notif-title">Storage tip: Mushrooms</div>
+          <div class="notif-msg">A paper bag in the fridge keeps them fresh up to twice as long.</div>
+          <div class="notif-time">2 days ago</div>
+        </div>
+      </div>
+      <div class="notif-row" data-notif-type="activity" onclick="openNotif(this, 'screen-stats', null)">
+        <div class="notif-ic"><i data-lucide="trending-down" class="icon-20" style="color:#4a7c59;"></i></div>
+        <div class="notif-body">
+          <div class="notif-title">Weekly waste report ready</div>
+          <div class="notif-msg">You wasted 32% less than last week. Keep it up!</div>
+          <div class="notif-time">3 days ago</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="notif-empty" class="empty-state" style="display:none;">
+      <div class="empty-icon"><i data-lucide="bell-off" class="icon-32"></i></div>
+      <p>No notifications match this filter.</p>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-ai-chat">
+    <div class="back-btn" onclick="showScreen('screen-home')"><i data-lucide="arrow-left" class="icon-14"></i> Back to Home</div>
+    <div class="screen-header">
+      <h2 style="display:inline-flex;align-items:center;gap:8px;"><i data-lucide="sparkles" class="icon-24" style="color:#4a7c59;"></i> Ask FreshKeep</h2>
+    </div>
+    <p style="font-size:12px;color:#8a7b65;margin-bottom:12px;">AI assistant aware of your inventory, expirations, and household preferences.</p>
+
+    <div class="suggestion-chips" id="chat-suggestions">
+      <div class="chip" onclick="chatSuggest('What can I make tonight with what is expiring?')">What can I make tonight?</div>
+      <div class="chip" onclick="chatSuggest('How long does Greek yogurt last after opening?')">Yogurt shelf life?</div>
+      <div class="chip" onclick="chatSuggest('Help me plan meals for the rest of the week.')">Plan my week</div>
+      <div class="chip" onclick="chatSuggest('What should I freeze before it spoils?')">What to freeze?</div>
+    </div>
+
+    <div class="chat-window" id="chat-window">
+      <div class="chat-msg bot">Hi Ryan! I see <b>Spinach</b> expires tomorrow and <b>Strawberries</b> in 2 days. Want a recipe that uses both, or freezing tips?</div>
+    </div>
+
+    <div class="chat-input-row">
+      <input id="chat-input" type="text" placeholder="Ask anything about your kitchen..." onkeydown="if(event.key==='Enter')sendChat()" />
+      <button class="chat-send" onclick="sendChat()" title="Send"><i data-lucide="send" class="icon-16"></i></button>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-shopping">
+    <div class="back-btn" onclick="showScreen('screen-home')"><i data-lucide="arrow-left" class="icon-14"></i> Back to Home</div>
+    <div class="screen-header">
+      <h2>Shopping List</h2>
+      <span style="cursor:pointer;color:#5c4a32;" onclick="shoppingMenu()" title="More options"><i data-lucide="more-horizontal" class="icon-20"></i></span>
+    </div>
+
+    <div class="card" style="background:#e8efe3;border-color:#a3c2a0;margin-bottom:14px;padding:12px 14px;">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:#3b5a3a;font-weight:600;"><i data-lucide="sparkles" class="icon-16"></i> Auto-generated from your inventory</div>
+      <p style="font-size:12px;color:#5c4a32;margin-top:4px;">Items you're running low on, plus ingredients for saved recipes.</p>
+    </div>
+
+    <div class="section-label">Produce</div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Spinach (5oz bag)</div>
+        <div class="shop-reason low"><i data-lucide="trending-down" class="icon-14"></i> Running low</div>
+      </div>
+      <div class="shop-qty">×1</div>
+    </div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Bananas</div>
+        <div class="shop-reason"><i data-lucide="repeat" class="icon-14"></i> Weekly staple</div>
+      </div>
+      <div class="shop-qty">×1 bunch</div>
+    </div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Bell peppers</div>
+        <div class="shop-reason recipe"><i data-lucide="chef-hat" class="icon-14"></i> For Stuffed Peppers recipe</div>
+      </div>
+      <div class="shop-qty">×3</div>
+    </div>
+
+    <div class="section-label">Dairy</div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Whole milk (1 gal)</div>
+        <div class="shop-reason low"><i data-lucide="trending-down" class="icon-14"></i> Out in 2 days</div>
+      </div>
+      <div class="shop-qty">×1</div>
+    </div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Greek yogurt</div>
+        <div class="shop-reason"><i data-lucide="repeat" class="icon-14"></i> Weekly staple</div>
+      </div>
+      <div class="shop-qty">×2</div>
+    </div>
+
+    <div class="section-label">Pantry</div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Olive oil</div>
+        <div class="shop-reason low"><i data-lucide="trending-down" class="icon-14"></i> Half bottle left</div>
+      </div>
+      <div class="shop-qty">×1</div>
+    </div>
+    <div class="shop-row" onclick="toggleShop(this)">
+      <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+      <div class="shop-info">
+        <div class="shop-name">Quinoa</div>
+        <div class="shop-reason recipe"><i data-lucide="chef-hat" class="icon-14"></i> For Stuffed Peppers recipe</div>
+      </div>
+      <div class="shop-qty">×1 bag</div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:16px;">
+      <button class="btn btn-sm" onclick="shareShoppingList()" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="share-2" class="icon-16"></i> Share</button>
+      <button class="btn btn-sm btn-outline" onclick="exportShoppingList()" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;"><i data-lucide="download" class="icon-16"></i> Export</button>
+    </div>
+
+    <button class="fab" onclick="addShopItem()" title="Add custom item"><i data-lucide="plus" class="icon-28"></i></button>
+  </div>
+
   <div class="tab-bar">
     <div class="tab active" id="tab-home" onclick="showScreen('screen-home')">
       <span class="tab-icon"><i data-lucide="home" class="icon-20"></i></span>
@@ -1609,6 +1955,9 @@
     else if (id === 'screen-scan') document.getElementById('tab-home').classList.add('active');
     else if (id === 'screen-quick-sync') document.getElementById('tab-home').classList.add('active');
     else if (id === 'screen-recipe') document.getElementById('tab-home').classList.add('active');
+    else if (id === 'screen-notifications') document.getElementById('tab-home').classList.add('active');
+    else if (id === 'screen-ai-chat') document.getElementById('tab-home').classList.add('active');
+    else if (id === 'screen-shopping') document.getElementById('tab-home').classList.add('active');
     else if (id.startsWith('screen-detail')) document.getElementById('tab-inventory').classList.add('active');
 
     // Scroll the screen back to the top on every navigation
@@ -1897,6 +2246,153 @@
   // Inventory header more menu
   function inventoryMenu() { openActionSheet('inventory'); }
   function statsMenu() { openActionSheet('stats'); }
+  function shoppingMenu() {
+    ACTION_MENUS.shopping = ACTION_MENUS.shopping || {
+      title: 'Shopping List Options',
+      items: [
+        { label: 'Clear checked items', icon: 'eraser', toast: 'Checked items cleared' },
+        { label: 'Send to Instacart', icon: 'shopping-cart', toast: 'Opening Instacart…' },
+        { label: 'Print as PDF', icon: 'printer', toast: 'Print preview ready' },
+        { label: 'Re-generate from inventory', icon: 'refresh-cw', toast: 'List re-generated' },
+      ],
+    };
+    openActionSheet('shopping');
+  }
+
+  // Notifications screen
+  function selectNotifFilter(el) {
+    document.querySelectorAll('#screen-notifications .filter-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    const f = el.dataset.notifFilter;
+    let visible = 0;
+    document.querySelectorAll('#notif-list .notif-row').forEach(row => {
+      const show = f === 'all' || row.dataset.notifType === f;
+      row.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    document.getElementById('notif-empty').style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function openNotif(row, screenId, fallbackToast) {
+    row.classList.remove('unread');
+    updateBellCount();
+    if (screenId) showScreen(screenId);
+    else if (fallbackToast) toast(fallbackToast);
+  }
+
+  function markAllRead() {
+    document.querySelectorAll('#notif-list .notif-row.unread').forEach(r => r.classList.remove('unread'));
+    updateBellCount();
+    toast('All notifications marked as read');
+  }
+
+  function updateBellCount() {
+    const unread = document.querySelectorAll('#notif-list .notif-row.unread').length;
+    const dot = document.getElementById('bell-dot');
+    if (!dot) return;
+    if (unread > 0) { dot.textContent = unread; dot.style.display = ''; }
+    else { dot.textContent = ''; dot.style.display = 'none'; }
+  }
+
+  // AI Chat screen — canned responses keyed off user input
+  const CHAT_RESPONSES = [
+    {
+      match: /tonight|dinner|recipe|make/i,
+      reply: 'Based on your inventory, I suggest <b>Spinach &amp; Mushroom Frittata</b> — it uses Spinach (1 day left), Mushrooms, and Eggs. Want me to start the recipe and deduct the ingredients?',
+    },
+    {
+      match: /yogurt|shelf|expir|how long/i,
+      reply: 'Greek yogurt typically lasts <b>1–2 weeks past the printed date</b> if refrigerated below 40°F. Your container has 4 days listed but is likely safe through next week — check for off smell or watery separation.',
+    },
+    {
+      match: /plan|week|meal/i,
+      reply: 'Here\'s a 4-meal plan that uses your expiring items first:<br>• <b>Mon:</b> Spinach &amp; Mushroom Frittata<br>• <b>Wed:</b> Strawberry Yogurt Parfait<br>• <b>Fri:</b> Chicken &amp; Quinoa Bowl<br>• <b>Sat:</b> Egg Fried Rice<br>Tap "Plan my week" to add to your calendar.',
+    },
+    {
+      match: /freeze|freezer/i,
+      reply: 'I\'d freeze: <b>Spinach</b> (blanch first, 30 sec), <b>Strawberries</b> (slice, freeze flat on a tray), and the spare half-loaf of bread. That extends them 2–6 months.',
+    },
+    {
+      match: /donate|food bank|share/i,
+      reply: 'There are 3 nearby pantries accepting donations today. Closest: <b>Second Harvest</b> (0.8 mi). They accept produce, dairy, and unopened pantry items. Want directions?',
+    },
+  ];
+
+  function appendChat(role, html) {
+    const win = document.getElementById('chat-window');
+    const msg = document.createElement('div');
+    msg.className = 'chat-msg ' + role;
+    msg.innerHTML = html;
+    win.appendChild(msg);
+    win.parentElement.scrollTop = win.parentElement.scrollHeight;
+  }
+
+  function chatSuggest(text) {
+    document.getElementById('chat-input').value = text;
+    sendChat();
+  }
+
+  function sendChat() {
+    const input = document.getElementById('chat-input');
+    const text = (input.value || '').trim();
+    if (!text) return;
+    appendChat('user', text.replace(/</g, '&lt;'));
+    input.value = '';
+
+    // Hide suggestions after first send
+    const chips = document.getElementById('chat-suggestions');
+    if (chips) chips.style.display = 'none';
+
+    const match = CHAT_RESPONSES.find(r => r.match.test(text));
+    const reply = match
+      ? match.reply
+      : 'I can help with recipe ideas, shelf-life questions, meal planning, and freezing tips. Try one of the chips above or ask anything about your kitchen.';
+
+    setTimeout(() => appendChat('bot', reply), 400);
+  }
+
+  function resetChat() {
+    const win = document.getElementById('chat-window');
+    if (!win) return;
+    win.innerHTML = '<div class="chat-msg bot">Hi Ryan! I see <b>Spinach</b> expires tomorrow and <b>Strawberries</b> in 2 days. Want a recipe that uses both, or freezing tips?</div>';
+    const input = document.getElementById('chat-input');
+    if (input) input.value = '';
+    const chips = document.getElementById('chat-suggestions');
+    if (chips) chips.style.display = '';
+  }
+
+  // Shopping list screen
+  function toggleShop(row) {
+    row.classList.toggle('checked');
+  }
+
+  function shareShoppingList() {
+    const total = document.querySelectorAll('#screen-shopping .shop-row').length;
+    const checked = document.querySelectorAll('#screen-shopping .shop-row.checked').length;
+    toast(`Shared ${total - checked} unchecked items via Messages`);
+  }
+
+  function exportShoppingList() {
+    toast('Shopping list exported as text');
+  }
+
+  function addShopItem() {
+    const name = prompt('Add a custom item to your list:');
+    if (!name || !name.trim()) return;
+    const list = document.querySelector('#screen-shopping .section-label:last-of-type');
+    const html = `
+      <div class="shop-row" onclick="toggleShop(this)">
+        <div class="shop-check"><i data-lucide="check" class="icon-14"></i></div>
+        <div class="shop-info">
+          <div class="shop-name">${name.replace(/</g, '&lt;').trim()}</div>
+          <div class="shop-reason"><i data-lucide="user" class="icon-14"></i> Added by you</div>
+        </div>
+        <div class="shop-qty">×1</div>
+      </div>`;
+    document.querySelector('#screen-shopping .section-label').insertAdjacentHTML('afterend', html);
+    if (window.lucide) window.lucide.createIcons();
+    toast('Added to shopping list');
+  }
 
   // Task walkthrough (kept for compatibility)
   function clearBanners() {
