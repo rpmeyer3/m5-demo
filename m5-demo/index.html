@@ -1099,7 +1099,7 @@
           <span class="bell-dot" id="bell-dot">3</span>
         </button>
       </div>
-      <div class="tagline">Welcome back, Ryan. <b>2 items</b> need attention today.</div>
+      <div class="tagline">Welcome back, Kristian. <b>2 items</b> need attention today.</div>
     </div>
 
     <div id="task-banner-home" class="task-banner" style="display:none;"></div>
@@ -1827,10 +1827,10 @@
           <div class="notif-time">5 hours ago</div>
         </div>
       </div>
-      <div class="notif-row unread" data-notif-type="activity" onclick="openNotif(this, null, 'Alex added 4 items from a Publix run')">
+      <div class="notif-row unread" data-notif-type="activity" onclick="openNotif(this, null, 'Matt added 4 items from a Publix run')">
         <div class="notif-ic"><i data-lucide="users" class="icon-20" style="color:#4a6b82;"></i></div>
         <div class="notif-body">
-          <div class="notif-title">Alex updated the inventory</div>
+          <div class="notif-title">Matt updated the inventory</div>
           <div class="notif-msg">Added 4 items from a Publix shopping trip.</div>
           <div class="notif-time">Yesterday</div>
         </div>
@@ -1874,7 +1874,7 @@
     </div>
 
     <div class="chat-window" id="chat-window">
-      <div class="chat-msg bot">Hi Ryan! I see <b>Spinach</b> expires tomorrow and <b>Strawberries</b> in 2 days. Want a recipe that uses both, or freezing tips?</div>
+      <div class="chat-msg bot">Hi Kristian! I see <b>Spinach</b> expires tomorrow and <b>Strawberries</b> in 2 days. Want a recipe that uses both, or freezing tips?</div>
     </div>
 
     <div class="chat-input-row">
@@ -2281,7 +2281,7 @@
 
   // Settings: household members row
   function householdMembers() {
-    toast('Household: Ryan, Alex, Sam (3 members)');
+    toast('Household: Kristian, Matt, Daniel (3 members)');
   }
 
   // Stats: trend card
@@ -2400,7 +2400,7 @@
   function resetChat() {
     const win = document.getElementById('chat-window');
     if (!win) return;
-    win.innerHTML = '<div class="chat-msg bot">Hi Ryan! I see <b>Spinach</b> expires tomorrow and <b>Strawberries</b> in 2 days. Want a recipe that uses both, or freezing tips?</div>';
+    win.innerHTML = '<div class="chat-msg bot">Hi Kristian! I see <b>Spinach</b> expires tomorrow and <b>Strawberries</b> in 2 days. Want a recipe that uses both, or freezing tips?</div>';
     const input = document.getElementById('chat-input');
     if (input) input.value = '';
     const chips = document.getElementById('chat-suggestions');
