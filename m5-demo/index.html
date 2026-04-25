@@ -1579,9 +1579,61 @@
     </div>
 
     <div class="section-label">Monthly Trend</div>
-    <div class="card" onclick="showTrendDetails()" style="text-align:center;color:#8a7b65;padding:30px;">
-      <div style="color:#4a7c59;"><i data-lucide="bar-chart-3" class="icon-40"></i></div>
-      <p style="margin-top:8px;">Waste reduction graph<br>(Trending downward, keep it up!)</p>
+    <div class="card" onclick="showTrendDetails()" style="padding:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <div>
+          <div style="font-size:11px;color:#8a7b65;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;">Money wasted</div>
+          <div style="font-size:20px;font-weight:800;color:#3b2f1e;">$38<span style="font-size:13px;font-weight:600;color:#8a7b65;"> this month</span></div>
+        </div>
+        <span style="font-size:11px;color:#4a7c59;font-weight:700;display:inline-flex;align-items:center;gap:4px;background:#dde8d6;padding:4px 8px;border-radius:6px;"><i data-lucide="trending-down" class="icon-14"></i> 44% lower</span>
+      </div>
+      <svg viewBox="0 0 280 140" xmlns="http://www.w3.org/2000/svg" style="display:block;width:100%;height:auto;">
+        <defs>
+          <linearGradient id="trendArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4a7c59" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#4a7c59" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- gridlines -->
+        <line x1="28" y1="16"  x2="272" y2="16"  stroke="#e5dcc8" stroke-width="1" stroke-dasharray="2 3"/>
+        <line x1="28" y1="66"  x2="272" y2="66"  stroke="#e5dcc8" stroke-width="1" stroke-dasharray="2 3"/>
+        <line x1="28" y1="116" x2="272" y2="116" stroke="#e5dcc8" stroke-width="1"/>
+
+        <!-- y-axis labels -->
+        <text x="22" y="20"  text-anchor="end" font-size="9" fill="#a59a80" font-family="-apple-system, sans-serif">$80</text>
+        <text x="22" y="70"  text-anchor="end" font-size="9" fill="#a59a80" font-family="-apple-system, sans-serif">$40</text>
+        <text x="22" y="120" text-anchor="end" font-size="9" fill="#a59a80" font-family="-apple-system, sans-serif">$0</text>
+
+        <!-- area fill -->
+        <path d="M28,31 L76.8,26 L125.6,43.5 L174.4,51 L223.2,61 L272,68.5 L272,116 L28,116 Z"
+              fill="url(#trendArea)"/>
+
+        <!-- trend line -->
+        <path d="M28,31 L76.8,26 L125.6,43.5 L174.4,51 L223.2,61 L272,68.5"
+              fill="none" stroke="#4a7c59" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- data points -->
+        <circle cx="28"    cy="31"   r="3" fill="#fffdf7" stroke="#4a7c59" stroke-width="2"/>
+        <circle cx="76.8"  cy="26"   r="3" fill="#fffdf7" stroke="#a0422a" stroke-width="2"/>
+        <circle cx="125.6" cy="43.5" r="3" fill="#fffdf7" stroke="#4a7c59" stroke-width="2"/>
+        <circle cx="174.4" cy="51"   r="3" fill="#fffdf7" stroke="#4a7c59" stroke-width="2"/>
+        <circle cx="223.2" cy="61"   r="3" fill="#fffdf7" stroke="#4a7c59" stroke-width="2"/>
+
+        <!-- highlighted current month -->
+        <circle cx="272" cy="68.5" r="5" fill="#4a7c59"/>
+        <circle cx="272" cy="68.5" r="9" fill="#4a7c59" opacity="0.18"/>
+        <text x="272" y="62" text-anchor="end" font-size="10" font-weight="700" fill="#3b5a3a" font-family="-apple-system, sans-serif">$38</text>
+
+        <!-- x-axis labels -->
+        <text x="28"    y="132" text-anchor="middle" font-size="10" fill="#8a7b65" font-family="-apple-system, sans-serif">Nov</text>
+        <text x="76.8"  y="132" text-anchor="middle" font-size="10" fill="#8a7b65" font-family="-apple-system, sans-serif">Dec</text>
+        <text x="125.6" y="132" text-anchor="middle" font-size="10" fill="#8a7b65" font-family="-apple-system, sans-serif">Jan</text>
+        <text x="174.4" y="132" text-anchor="middle" font-size="10" fill="#8a7b65" font-family="-apple-system, sans-serif">Feb</text>
+        <text x="223.2" y="132" text-anchor="middle" font-size="10" fill="#8a7b65" font-family="-apple-system, sans-serif">Mar</text>
+        <text x="272"   y="132" text-anchor="middle" font-size="10" font-weight="700" fill="#3b5a3a" font-family="-apple-system, sans-serif">Apr</text>
+      </svg>
+      <p style="font-size:11px;color:#8a7b65;text-align:center;margin-top:6px;">Tap for category breakdown</p>
     </div>
   </div>
 
