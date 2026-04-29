@@ -19,19 +19,17 @@ Hi-fi prototype of **FreshKeep**, a mobile app concept that scans grocery receip
 
 - **Designed** a hi-fi mobile prototype demonstrating receipt scanning, pantry inventory with expiration timers, recipe suggestions, and store integrations — packaged as a single-page web demo for in-class testing.
 - **Implemented** the three primary task flows: *Check expiration* (Inventory → tap item), *Scan receipt* (Home → Scan Receipt → Capture → Confirm), and *Connect store + notifications* (Settings → Link My Grocery Accounts → Kroger → Authorize), plus a supplementary AI chatbot flow.
-- **Built** a small Python utility (`strip_comments.py`) that safely removes HTML/CSS/JS comments from the deployed `index.html` while preserving strings, template literals, and regex contexts.
-- **Stack:** HTML · CSS · JavaScript · Python · Vercel
+- **Stack:** HTML · CSS · JavaScript · Vercel
 
 <!-- -->
 
 ## Repository Layout
 
 ```
-├── m5-demo/            # The hi-fi prototype itself
-│   ├── index.html
-│   ├── vercel.json
-│   └── README.md       # Detailed flow walkthrough & team notes
-└── strip_comments.py   # In-place comment-stripping utility for index.html
+└── m5-demo/            # The hi-fi prototype itself
+    ├── index.html
+    ├── vercel.json
+    └── README.md       # Detailed flow walkthrough & team notes
 ```
 
 ## Team
